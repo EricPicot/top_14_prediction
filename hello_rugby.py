@@ -12,3 +12,7 @@ import numpy as np
 print("hello world")
 
 a =[x**2 for x in range(5)]
+path = "/Users/ericpicot/Documents/top_14_prediction"
+a = pd.DataFrame(a)
+a.to_csv(path+"/crone_test.csv", mode ="a")
+print("to_csv = done")
