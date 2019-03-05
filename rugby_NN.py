@@ -95,36 +95,35 @@ X_train, X_test, y_train, y_test = train_test_split(data[features+
                                                     data["target"], 
                                                     test_size=.15, 
                                                     random_state=0)
-list_tree = [10,20,30]
+list_tree = [10, 40,60,100,150]
 list_max_depth = [4,6,8]
-list_min_child_weight= [1]
-list_gamma = [ 1, 2,5]
+list_min_child_weight= [1, 2,5]
+list_gamma = [0.5, 1]
 list_subsample = [0.8, 1.0]
-list_colsample_bytree = [0.6, 0.5]
-LR = [0.1,0.05,0.01]
+list_colsample_bytree = [0.6, 0.8, 1.0]
+
 score = 0
 
 for tree in list_tree:
     for max_depth in list_max_depth:
         for min_child_weight in list_min_child_weight:
             for gamma in list_gamma:
-                for lr in LR:
-                    for subsample in list_subsample:
-                        for colsample_bytree in list_colsample_bytree:
-                            model = xgboost.XGBClassifier(max_depth=max_depth, learning_rate=lr, n_estimators=tree, silent=True,
-                                                         min_child_weight=min_child_weight, gamma=gamma, subsample=subsample, colsample_bytree=colsample_bytree, nthread=2, reg_lambda=0, reg_alpha=1)
-                            model.fit(X_train[features], y_train)
-                            score_ = model.score(X_test[features], y_test)
-                            
-                            if score_ > score:
-                                print(score_)
-                                tmp_tree = tree
-                                tmp_max_depth = max_depth
-                                tmp_min_child_weight = min_child_weight
-                                tmp_gamma = gamma
-                                tmp_subsample = subsample
-                                tmp_colsample_bytree = colsample_bytree
-                                score = score_ 
+                for subsample in list_subsample:
+                    for colsample_bytree in list_colsample_bytree:
+                        model = xgboost.XGBClassifier(max_depth=max_depth, learning_rate=0.02, n_estimators=tree, silent=True,
+                                                     min_child_weight=min_child_weight, gamma=gamma, subsample=subsample, colsample_bytree=colsample_bytree, nthread=2, reg_lambda=0, reg_alpha=1)
+                        model.fit(X_train[features], y_train)
+                        score_ = model.score(X_test[features], y_test)
+                        
+                        if score_ > score:
+                            print(score_)
+                            tmp_tree = tree
+                            tmp_max_depth = max_depth
+                            tmp_min_child_weight = min_child_weight
+                            tmp_gamma = gamma
+                            tmp_subsample = subsample
+                            tmp_colsample_bytree = colsample_bytree
+                            score = score_ 
 
 print("results Grid Search : ")
 print(tmp_tree)
