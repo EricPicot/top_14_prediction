@@ -17,10 +17,14 @@ import datetime
 now = datetime.datetime.now()
 
 
+print("résultats --------------------------------------------------------------------------")
 
-
+#Loading old data (saison)
 data_old = pd.read_csv("data_saison.csv")
+
+#Saving old version
 data_old.to_csv("data_saison"+now.strftime("%Y_%m_%d")+".csv")
+
 know_journees = data_old["saison - journee"].drop_duplicates().tolist()
 fixe = "https://www.lnr.fr/"
 # acces aux pages des saisons
@@ -54,10 +58,14 @@ wiki_temp = []
 saison = []
 for i in (soup.findAll("section", {"class": "block block-lnr-custom block-lnr-custom-calendar-results-filter"})[0].
      findAll("span", {"class": "field-content"}))[15:]:
+    
+#   Only scrapping unknown journees
     if i.a["data-title"] not in know_journees:
         wiki_temp.append(i.a["href"])
         journee_name.append(i.a["data-title"])
+        
     journee_n = 0
+# Retrieving all information from unknown journees
 for j in wiki_temp:
     requete = requests.get(fixe+j)
     page = requete.content
@@ -84,10 +92,74 @@ for j in wiki_temp:
     
 cols = ["saison - journee", "date","equipe_d", "equipe_e", "score_d", "score_e", "bonus_d", "bonus_e"]
 data = pd.DataFrame(saison,columns=cols)
+
 print("Adding following journees:", data["saison - journee"].drop_duplicates().tolist(),"\n")
 
+# Saving new saison data version
 pd.concat([data_old, data], sort = True)[cols].to_csv("data_saison.csv")
 
-print("DONE !!!!")
 
+##### Classement
+
+print("classement --------------------------------------------------------------------------")
+
+#  Loading old data version
+data_old = pd.read_csv("data_classement.csv")
+
+#  saving old version before changes
+data_old.to_csv("data_classement"+now.strftime("%Y_%m_%d")+".csv")
+know_journees = data_old["journee_nom"].drop_duplicates().tolist()
+
+# Current version
+cl = "https://www.lnr.fr/rugby-top-14/classement-rugby-top-14"
+requete_class = requests.get(cl)
+page_class = requete_class.content
+soup_class = b(page_class, features="lxml")
+
+wiki_temp_class = []
+journee_name_class = []
+classement = []
+
+for i in soup_class.find("div", {"class": "tabs-content"}).findAll("a", {"class": "filter"})[10:]:
+#     i.findAll("span", {"class": "field-content"})[15:]
+    if i["data-title"] not in know_journees:
+        wiki_temp_class.append(i["href"])
+        journee_name_class.append(i["data-title"])
+    
+p=0
+for k,j in enumerate(wiki_temp_class):
+    requete = requests.get(fixe+j)
+    page = requete.content
+    soup_class = b(page, features="lxml")
+    for x in range(14):
+        try:
+            team = []
+            team.append(p)
+            team.append(journee_name_class[k])
+
+            team.append(soup_class.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field views-field-field-ranking"})[x].text.strip())
+            team.append(soup_class.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-points"})[x].text.strip())
+            team.append(soup_class.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field views-field-field--quipe"})[x].text.strip())
+            team.append(soup_class.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-nbmatchsplayed"})[x].text.strip())
+            team.append(soup_class.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-won"})[x].text.strip())
+            team.append(soup_class.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-draws"})[x].text.strip())
+            team.append(soup_class.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-lost"})[x].text.strip())
+            team.append(soup_class.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-bonus"})[x].text.strip())
+            team.append(soup_class.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-pointsscored"})[x].text.strip())
+            team.append(soup_class.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-pointsconceded"})[x].text.strip())
+
+            team.append(soup_class.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-diff"})[x].text.strip()[1:])
+
+
+            classement.append(team)
+        except:
+            None
+    p+=1
+    
+col_class = ["journee","journee_nom", "classement", "nb_pts","equipe","nb_matchs_joues","victoire","nul", "defaite", "bonus", "pts_marques","pts_pris","ga"]
+data = pd.DataFrame(classement,columns = col_class)
+
+print("Adding following journees:", data["journee_nom"].drop_duplicates().tolist(),"\n")
+
+pd.concat([data_old, data], sort = True)[col_class].to_csv("classement_test.csv")
 
