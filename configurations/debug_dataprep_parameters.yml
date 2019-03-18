@@ -1,0 +1,35 @@
+# URL saison 2018-2019
+seasons_url_list:
+  [
+  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=27591&day=all"
+  ]
+
+fixed_url:
+  "https://www.lnr.fr"
+
+# URL 19ème journée - Saison 2018-2019
+day_url_list:
+  [
+  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=27591&day=27555"
+  ]
+
+season_id:
+  "2018 - 2019"
+
+current_day:
+  "19"
+
+MATCHES_RESULTS_COLS :
+  [
+    'season_URL',
+    'day_URL',
+    "season_id",
+    "season_day",
+    "date",
+    "team_dom",
+    "team_ext",
+    "score_dom",
+    "score_ext",
+    "bonus_dom",
+    "bonus_ext"
+  ]
