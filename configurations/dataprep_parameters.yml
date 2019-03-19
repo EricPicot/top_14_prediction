@@ -1,0 +1,20 @@
+fixed_url: "https://www.lnr.fr"
+
+seasons_url_list:
+  [
+#  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=14524&day=all",
+#  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=14523&day=all",
+#  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=14522&day=all",
+#  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=14519&day=all",
+#  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=14520&day=all",
+#  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=14521&day=all",
+#  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=14528&day=all",
+#  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=14529&day=all",
+#  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=14530&day=all",
+#  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=14534&day=all",
+#  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=14535&day=all",
+#  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=18505&day=all",
+#  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=21642&day=all",
+  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=24725&day=all",
+  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=27591&day=all"
+  ]
