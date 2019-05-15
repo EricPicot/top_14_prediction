@@ -19,6 +19,7 @@ MATCHES_RESULTS_COLS = [
 ]
 
 
+
 class ScrapSeasons:
     """
     Class used as base to scrap matches data from LNR website.
