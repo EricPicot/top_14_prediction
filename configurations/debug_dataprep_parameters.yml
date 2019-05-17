@@ -4,6 +4,10 @@ seasons_url_list:
   "/rugby-top-14/calendrier-resultats-rugby-top-14?season=27591&day=all"
   ]
 
+seasons_ranking_list:
+[
+"/rugby-top-14/classement-rugby-top-14?season=27591&day=all"
+]
 fixed_url:
   "https://www.lnr.fr"
 
