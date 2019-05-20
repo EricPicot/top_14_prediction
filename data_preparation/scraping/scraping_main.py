@@ -15,9 +15,8 @@ class Scraping:
                                                            debug).matches_results
 
         # Get 'ranking_history' attribute of ScrapRanking object
-        # self.scraping_dict['scrap_ranking'] = ScrapRanking(..., debug).ranking_history
+        self.scraping_dict['scrap_ranking'] = ScrapRanking( self.dataprep_parameters['fixed_url'],
+                                                   self.dataprep_parameters['seasons_ranking_list'],
+                                                   debug).ranking_results
 
-        # ---- Next Scraping TBD ----
-        #
-        #
-
+       

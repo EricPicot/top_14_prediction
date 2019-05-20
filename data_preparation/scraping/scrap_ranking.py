@@ -139,14 +139,14 @@ class Season:
 #         # Get the urls to the different Days of the current season (stored in a dictionary)
 #         # and the identification of the current season.
         self.season_id, self.days = self.get_days_url()
-
+        print("season_id", self.season_id)
         for day in self.days:
             # We will not scrap data for the days already loaded
             # The last day can have been loaded while all the matches were not already played
             # thus we reload the last day
             if (self.days[day] not in self.already_loaded_days) \
                     or (self.days[day] == self.last_day_loaded):
-
+                print("day:", day, self.days[day])
                 # Scrap the data for this day
                 current_day = Day(self.fixed_url,
                                   self.season_id,
@@ -227,6 +227,8 @@ class Day:
                                          )
 
 class Team:
+
+        
     def __init__(self, season_id, current_day,
                  season_url, day_url, day_soup, team):
 
@@ -235,20 +237,35 @@ class Team:
         self.day_soup = day_soup
         self.season_id = season_id
         self.current_day = current_day
-
-        x = team
-        self.classement = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field views-field-field-ranking"})[team].text.strip()
-        self.nb_pts = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-points"})[team].text.strip()
-        self.team = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field views-field-field--quipe"})[team].text.strip()
-        self.nb_matchs_joues = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-nbmatchsplayed"})[team].text.strip()            
-        self.victoire = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-won"})[team].text.strip()
-        self.nul = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-draws"})[team].text.strip()
-        self.defaite = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-lost"})[team].text.strip()
-        self.bonus = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-bonus"})[team].text.strip()
-        self.pts_marques = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-pointsscored"})[team].text.strip()
-        self.pts_pris = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-pointsconceded"})[team].text.strip()
-        self.ga = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-diff"})[team].text.strip()[1:]
+        self.team=team
         
+        self.classement=None
+        self.nb_pts=None
+        self.team=None
+        self.nb_matchs_joues=None
+        self.victoire=None
+        self.nul=None
+        self.defaite=None
+        self.bonus=None
+        self.pts_marques=None
+        self.pts_pris=None
+        self.ga = None
+        nb_teams = len(self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field views-field-field-ranking"}))
+        print(nb_teams)
+        if team < nb_teams:
+            self.team = team
+            self.classement = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field views-field-field-ranking"})[team].text.strip()
+            self.nb_pts = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-points"})[team].text.strip()
+            self.team = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field views-field-field--quipe"})[team].text.strip()
+            self.nb_matchs_joues = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-nbmatchsplayed"})[team].text.strip()            
+            self.victoire = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-won"})[team].text.strip()
+            self.nul = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-draws"})[team].text.strip()
+            self.defaite = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-lost"})[team].text.strip()
+            self.bonus = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-bonus"})[team].text.strip()
+            self.pts_marques = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-pointsscored"})[team].text.strip()
+            self.pts_pris = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-pointsconceded"})[team].text.strip()
+            self.ga = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field-field-diff"})[team].text.strip()[1:]
+
         self.team_attributes_list = [[
             self.season_id,
             self.day_url,
