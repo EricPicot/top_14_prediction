@@ -251,7 +251,6 @@ class Team:
         self.pts_pris=None
         self.ga = None
         nb_teams = len(self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field views-field-field-ranking"}))
-        print(nb_teams)
         if team < nb_teams:
             self.team = team
             self.classement = self.day_soup.find("div", {"class": "scroll-wrapper"}).findAll("td", {"class": "views-field views-field-field-ranking"})[team].text.strip()

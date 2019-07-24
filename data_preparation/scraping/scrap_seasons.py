@@ -141,6 +141,7 @@ class Season:
         # Get the urls to the different Days of the current season (stored in a dictionary)
         # and the identification of the current season.
         self.season_id, self.days = self.get_days_url()
+        print("season_id", self.season_id)
 
         for day in self.days:
             # We will not scrap data for the days already loaded
