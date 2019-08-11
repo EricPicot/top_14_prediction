@@ -10,8 +10,10 @@ dataprep_parameters_path='configurations/dataprep_parameters.yml'
 # ---- DATA PREPARATION PHASE ----
 
 # -- Create instance of DataPrep Class --
+print("dataPrep")
 data_prep = DataPrep(dataprep_parameters_path)
-
+print()
+print("scrap")
 data_prep.scrap(debug)
 
 # data_prep.transform(debug)

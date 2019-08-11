@@ -33,3 +33,16 @@ MATCHES_RESULTS_COLS :
     "bonus_dom",
     "bonus_ext"
   ]
+  
+RANKING_COLS : ["season","day_url","day",
+                "classement",
+                "nb_pts",
+                "equipe",
+                "nb_matchs_joues",
+                "victoire",
+                "nul",
+                "defaite",
+                "bonus",
+                "pts_marques",
+                "pts_pris",
+                "ga"]
