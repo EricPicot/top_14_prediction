@@ -10,7 +10,6 @@ class ResultsTransformation():
         # ---- Initialize attributes ----
         # Raw Data saving file
         self.raw_data_path = 'raw_data/matches_results.csv'
-        self.raw_transformed_data_path =  '../raw_data/matches_transformed_results.csv'
         self.matches_result_df = pd.read_csv(self.raw_data_path, sep = "|")
 
 
