@@ -16,7 +16,11 @@ seasons_url_list:
  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=18505&day=all",
  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=21642&day=all",
   "/rugby-top-14/calendrier-resultats-rugby-top-14?season=24725&day=all",
-  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=27591&day=all"
+  "/rugby-top-14/calendrier-resultats-rugby-top-14?season=27591&day=all",
+ "/rugby-top-14/calendrier-resultats-rugby-top-14?season=30199&day=all"
+
+
+  
   ]
   
 seasons_ranking_list : [
@@ -34,5 +38,7 @@ seasons_ranking_list : [
  "/rugby-top-14/classement-rugby-top-14?season=18505&day=all",
  "/rugby-top-14/classement-rugby-top-14?season=21642&day=all",
   "/rugby-top-14/classement-rugby-top-14?season=24725&day=all",
-  "/rugby-top-14/classement-rugby-top-14?season=27591&day=all"
+  "/rugby-top-14/classement-rugby-top-14?season=27591&day=all",
+  "/rugby-top-14/classement-rugby-top-14?season=30199&day=all"
+
 ]
