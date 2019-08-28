@@ -6,13 +6,20 @@ import sys
 class RankingTransformation():
     
     def __init__(self):
-
-        # ---- Initialize attributes ----
-        # Raw Data saving file
-        self.raw_data_path = 'raw_data/ranking_results.csv'
-        self.raw_transformed_data_path =  '/raw_data/ranking_transformed_results.csv'
         
-        self.ranking_df = pd.read_csv(self.raw_data_path, sep = "|")
+        self.ranking_df = None
+
+        # ---- Initialize attributes ----        
+        
+
+        
+    def set_ranking_df(self, df):
+        
+        self.ranking_df = df
+        
+    def transform(self):
+    
+#         self.ranking_df = pd.read_csv(self.raw_data_path, sep = "|")
         self.ranking_df = self.ranking_df.rename(columns={"season": "season_id",
                                                "day" : "season_day",
                                                "bonus":"nb_bonus"})
@@ -27,4 +34,9 @@ class RankingTransformation():
 
 #         print('Updated Raw Data exported to {}'.format(self.raw_transformed_data_path))
 
+
+# r = RankingTransformation()
+# df = pd.read_csv("../raw_data/ranking_results.csv", sep = "|")
+# r.set_ranking_df(df)
+# r.transform()
         

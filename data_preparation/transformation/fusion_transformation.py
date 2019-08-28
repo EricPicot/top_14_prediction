@@ -21,17 +21,17 @@ def merging_data(ranking_df, result_df):
                'nb_bonus', 'pts_marques', 'pts_pris', 'ga']:
             data = data.rename(columns = {x:x+which})
 
-#     data["win_ratio_dom"] = data["victoire_dom"]/data["nb_matchs_joues_dom"]
-#     data["win_ratio_ext"] = data["victoire_ext"]/data["nb_matchs_joues_ext"]
+    data["win_ratio_dom"] = data["victoire_dom"]/data["nb_matchs_joues_dom"]
+    data["win_ratio_ext"] = data["victoire_ext"]/data["nb_matchs_joues_ext"]
 
-#         # Ratio de bonus
-#     data["bonus_ratio_dom"] = data["nb_bonus_dom"]/data["nb_matchs_joues_dom"]
-#     data["bonus_ratio_ext"] = data["nb_bonus_ext"]/data["nb_matchs_joues_ext"]
+        # Ratio de bonus
+    data["bonus_ratio_dom"] = data["nb_bonus_dom"]/data["nb_matchs_joues_dom"]
+    data["bonus_ratio_ext"] = data["nb_bonus_ext"]/data["nb_matchs_joues_ext"]
 
-#         # Average goal average
-#     data["aga_dom"] = data["ga_dom"]/data["nb_matchs_joues_dom"]
-#     data["aga_ext"] = data["ga_ext"]/data["nb_matchs_joues_ext"]
-#     data = pd.get_dummies(data,columns=['day_of_week'])
+        # Average goal average
+    data["aga_dom"] = data["ga_dom"]/data["nb_matchs_joues_dom"]
+    data["aga_ext"] = data["ga_ext"]/data["nb_matchs_joues_ext"]
+    data = pd.get_dummies(data,columns=['day_of_week'])
     data = data.dropna(how = "any")
 
     return data
