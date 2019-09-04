@@ -3,6 +3,48 @@ import numpy as np
 import sys
 sys.path.append( '../data_preparation/raw_data')
 
+nom_standard = {'Oyonnax':'Oyonnax',
+ 'Racing 92':'Racing 92',
+ 'Montpellier':'Montpellier Herault Rugby',
+ 'Paris':'Stade Francais Paris',
+ 'Brive':'CA Brive',
+ 'CA Brive':'CA Brive',
+ 'Bordeaux-Bègles':'Union Bordeaux-Begles',
+ 'Toulon':'RC Toulon',
+ 'Agen':'SU Agen',
+ 'Lyon':"LOU Rugby",
+ 'Castres':"Castres Olympique",
+ 'Toulouse':"Stade Toulousain",
+ 'Clermont':"ASM Clermont",
+ 'La Rochelle':'Stade Rochelais',
+ 'Pau':'Section Paloise',
+ 'Perpignan':'USA Perpignan',
+ 'Grenoble':'FC Grenoble Rugby',
+ 'RC Toulon':'RC Toulon',
+ 'Castres Olympique':"Castres Olympique",
+ 'FC Grenoble Rugby':"FC Grenoble Rugby",
+ 'SU Agen':"Agen",
+ 'Union Bordeaux-Bègles':'Union Bordeaux-Begles',
+ 'ASM Clermont':"ASM Clermont",
+ 'Stade Toulousain':'Stade Toulousain',
+ 'LOU Rugby':"LOU Rugby",
+ 'Stade Français Paris':'Stade Francais Paris',
+ 'USA Perpignan':"USA Perpignan",
+ 'Section Paloise': "Section Paloise",
+ 'Stade Rochelais':"Stade Rochelais",
+ 'Montpellier Hérault Rugby':"Montpellier Herault Rugby",
+ 'Béziers':'Beziers',
+ 'Bayonne':"Aviron Bayonnais",
+ "Aviron Bayonnais":"Aviron Bayonnais",
+ 'Auch':"Auch",
+ 'Biarritz':"Biarritz",
+ 'Bourgoin':'Bourguoin',
+ 'Narbonne':'Narbonne',
+ 'Montauban':'Montauban',
+ 'Albi':'Albi',
+ 'Dax':'Dax',
+ 'Mont-de-Marsan':'Mont-de-Marsan'}
+
 class ResultTransformation():
     
     def __init__(self):
@@ -44,6 +86,9 @@ class ResultTransformation():
         self.result_df["season_day"] = self.result_df["season_day"].astype(int) 
 
         self.result_df["label"] = self.result_df["score_dom"]>self.result_df["score_ext"]
+        
+        self.result_df["team_dom"] = self.result_df["team_dom"].apply(lambda x: nom_standard[x]) 
+        self.result_df["team_ext"] = self.result_df["team_ext"].apply(lambda x: nom_standard[x]) 
 
 #         self.result_df.to_csv(self.raw_transformed_data_path,
 #                                     sep='|',

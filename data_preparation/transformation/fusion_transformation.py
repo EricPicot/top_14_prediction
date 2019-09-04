@@ -10,8 +10,8 @@ def merging_data(ranking_df, result_df):
     data = result_df
     for which in ["_dom","_ext"]:
         data = data.merge(right = ranking_df,
-                            right_on = ["season_id","season_day+1",'equipe'],
                             left_on = ["season_id","season_day","team"+which],
+                            right_on = ["season_id","season_day+1",'equipe'],
                             how = "inner").drop(["equipe",'day_url_y', 'season_day_y',"season_day+1"], axis=1)
 
         data = data.rename(columns = {'season_day_x':"season_day",
@@ -32,7 +32,7 @@ def merging_data(ranking_df, result_df):
     data["aga_dom"] = data["ga_dom"]/data["nb_matchs_joues_dom"]
     data["aga_ext"] = data["ga_ext"]/data["nb_matchs_joues_ext"]
     data = pd.get_dummies(data,columns=['day_of_week'])
-    data = data.dropna(how = "any")
+    data = data.fillna(0)
 
     return data
     

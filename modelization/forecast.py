@@ -39,11 +39,9 @@ data = FT.merging_data(Ranking.ranking_df, Results.result_df)
 
 
 
-train_data = data[~data["season_id"].isin(["2018-2019","2019-2020"])]
-print(data.shape, train_data.shape)
 
 
-
+test_data = data[data["season_id"].isin(["2018-2019","2019-2020"])]
 
 columns_for_first_model = ['day_of_week_Dimanche', 
                            'day_of_week_Samedi',
@@ -55,22 +53,21 @@ columns_for_first_model = ['day_of_week_Dimanche',
                            "win_ratio_ext",
                            "aga_dom",
                            "aga_ext"]
+print(data.shape, test_data.shape)
 
-X = data[columns_for_first_model]
-Y = data["label"]
 
-Xtrain,Xtest, ytrain, ytest = tts(X,Y, test_size = 0.2)
-clf = tree.DecisionTreeClassifier().fit(Xtrain, ytrain)
-print(clf.score(Xtest, ytest)) 
+X = test_data[columns_for_first_model]
+Y = test_data["label"]
 
-print(X.shape)
+
+
 # # Save the trained model as a pickle string. 
 # # from sklearn.externals import joblib 
   
-# Save the model as a pickle in a file 
-with open(r"models/test_model.pickle", "wb") as output_file:
-    pickle.dump(clf, output_file)
-print("model dumped")
+
+    
+loaded_model = pickle.load(open(r"models/test_model.pickle", 'rb'))
+print("model load")
 # Load the pickled model 
 # knn_from_pickle = pickle.loads(clf) 
 
@@ -81,4 +78,6 @@ print("model dumped")
 #     loaded_model = pickle.load(input_file)
 # print(loaded_model.score(Xtest, ytest)) 
 
-data.iloc[:5,:].to_csv("test_data.csv")
+# data.iloc[:5,:].to_csv("test_data.csv")
+print(loaded_model.score(X, Y)) 
+
