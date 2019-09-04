@@ -29,7 +29,7 @@ The loading step should return a train set and a prediction set (at least 1 line
 
 ## Modelization
 
-
+To launch rudemntary training: __python training.py "../data_preparation/raw_data/ranking_results.csv" "../data_preparation/raw_data/matches_results.csv"__
 
 ## Prediction
 
