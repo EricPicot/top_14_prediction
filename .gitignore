@@ -1,2 +1,4 @@
+*pycache*
 *.log
 .ipynb*
+*metastore_db*
