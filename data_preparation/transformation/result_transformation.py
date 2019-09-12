@@ -62,30 +62,34 @@ class ResultTransformation():
         
     def transform(self):
 
-#         self.result_df = pd.read_csv(self.raw_data_path, sep = "|")
+        # self.result_df = pd.read_csv(self.raw_data_path, sep = "|")
 
 
-        # Pour l'instant on tachera de prédire la saison reguliere
-        self.result_df = self.result_df.loc[~self.result_df["season_day"].isin(["Match accession",
+        # Pour l'instant on tachera de predire la saison reguliere
+        self.result_df = (self.result_df.loc[~self.result_df["season_day"].isin([
+                                        "Match accession",
                                         'Barrages',
                                         'Matchs de barrage',
                                         'Demi Finales',
                                         'Demi-Finales',
                                         'Demi-finales',
-                                        'Finale'])]
-        self.result_df[["day_of_week","day_of_month","month"]] = self.result_df\
-                                                                                        .date\
-                                                                                        .str\
-                                                                                        .split(" ")\
-                                                                                        .apply(pd.Series)
-        self.result_df["month"] = self.result_df["month"].str.lower().str.replace("û","u").str.replace("é","e").str.replace("è","e")
+                                        'Finale'])])
+        self.result_df[["day_of_week", "day_of_month""month"]] = (self.result_df.date
+                                                                                .str
+                                                                                .split(" ")
+                                                                      .apply(pd.Series))
+
+        self.result_df["month"] = (self.result_df["month"].str.lower()
+                                                         .str.replace("û", "u")
+                                                         .str.replace("é", "e")
+                                                         .str.replace("è", "e"))
         self.result_df["bonus_dom"] = self.result_df["bonus_dom"].fillna("0")
         self.result_df["bonus_ext"] = self.result_df["bonus_ext"].fillna("0")
-        self.result_df["score_dom"] =  self.result_df["score_dom"].astype(int) 
-        self.result_df["score_ext"] =  self.result_df["score_ext"].astype(int) 
+        self.result_df["score_dom"] = self.result_df["score_dom"].astype(int)
+        self.result_df["score_ext"] = self.result_df["score_ext"].astype(int)
         self.result_df["season_day"] = self.result_df["season_day"].astype(int) 
 
-        self.result_df["label"] = self.result_df["score_dom"]>self.result_df["score_ext"]
+        self.result_df["label"] = self.result_df["score_dom"] > self.result_df["score_ext"]
         
         self.result_df["team_dom"] = self.result_df["team_dom"].apply(lambda x: nom_standard[x]) 
         self.result_df["team_ext"] = self.result_df["team_ext"].apply(lambda x: nom_standard[x]) 
